@@ -5,13 +5,6 @@ Version:	1.2.3
 Release:	3
 License:	GPL
 Group:		Libraries
-Group(de):	Libraries
-Group(es):	Bibliotecas
-Group(fr):	Librairies
-Group(pl):	Biblioteki
-Group(pt_BR):	Bibliotecas
-Group(ru):	Библиотеки
-Group(uk):	Б╕бл╕отеки
 URL:		http://heroine.linuxave.net/libmpeg3.html
 Source0:	http://heroine.linuxave.net/%{name}-%{version}.tar.gz
 Patch0:		%{name}-shared.patch
@@ -43,13 +36,6 @@ strumieЯ, ktСry Ёatwo jest odtwarzaФ lub edytowaФ.
 Summary:	Header files for developing programs using libmpeg3
 Summary(pl):	Pliki nagЁСwkowe do rozwijania programСw u©ywaj╠cych libmpeg3
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(ru):	Разработка/Библиотеки
-Group(uk):	Розробка/Б╕бл╕отеки
 Requires:	%{name} = %{version}
 
 %description devel
@@ -65,13 +51,6 @@ libmpeg3.
 Summary:	Static libmpeg3 library
 Summary(pl):	Statyczna biblioteka libmpeg3
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(ru):	Разработка/Библиотеки
-Group(uk):	Розробка/Б╕бл╕отеки
 Requires:	%{name}-devel = %{version}
 
 %description static
@@ -84,8 +63,6 @@ Statyczna biblioteka libmpeg3.
 Summary:	libmpeg3 utility programs
 Summary(pl):	programy u©ytkowe
 Group:		Applications/Graphics
-Group(de):	Applikationen/Grafik
-Group(pl):	Aplikacje/Grafika
 Requires:	%{name} = %{version}
 
 %description progs
