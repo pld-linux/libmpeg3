@@ -81,7 +81,16 @@ plikami MPEG.
 ln -sf . libmpeg3
 
 %build
-%{__make} CFLAGS="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS} -I./ -I../"
+CFLAGS="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS} -I./ -I../"
+export CFLAGS
+./configure \
+%ifnarch %{ix86}
+	--nommx \
+	--nocss
+%endif
+	--nothing
+
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
