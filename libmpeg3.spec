@@ -10,6 +10,7 @@ Source0:	http://heroine.linuxave.net/%{name}-%{version}.tar.gz
 Patch0:		%{name}-shared.patch
 Patch1:		%{name}-headers.patch
 Patch2:		%{name}-install.patch
+Patch3:		%{name}-gcc.patch
 BuildRequires:	nasm
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -78,6 +79,7 @@ plikami MPEG.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 ln -sf . libmpeg3
 
 %build
