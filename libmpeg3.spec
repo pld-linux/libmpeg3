@@ -5,8 +5,8 @@ Version:	1.2.3
 Release:	4
 License:	GPL
 Group:		Libraries
-URL:		http://heroinewarriors.com/libmpeg3.php3
 Source0:	http://heroinewarriors.com/%{name}-%{version}.tar.gz
+URL:		http://heroinewarriors.com/libmpeg3.php3
 Patch0:		%{name}-shared.patch
 Patch1:		%{name}-headers.patch
 Patch2:		%{name}-install.patch
