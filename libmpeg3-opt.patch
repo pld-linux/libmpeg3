@@ -5,7 +5,7 @@
    USE_MMX = 0
    ifneq ($(HAVE_CFLAGS), yes)
 -    CFLAGS = -O4 -arch ev67 -ieee -accept c99_keywords -gcc_messages
-+    CFLAGS = $(OPT) -ieee -accept c99_keywords -gcc_messages
++    CFLAGS = $(OPT)
    endif
  endif
  
