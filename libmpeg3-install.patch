@@ -28,7 +28,7 @@ diff -urN libmpeg3-1.2.3.org/Makefile libmpeg3-1.2.3/Makefile
 +	video/mpeg3video.h
 +
  OUTPUT = libmpeg3.a
- OUTPUT_SHARED = libmpeg3.so.1.2.2
+ OUTPUT_SHARED = libmpeg3.so.$(MAJOR).$(MINOR).$(MICRO)
 -UTILS = dump mpeg3cat mpeg3toc mpeg3split
 +UTILS = mpeg3dump mpeg3cat mpeg3toc mpeg3split
  LIBS = -lm -lpthread
