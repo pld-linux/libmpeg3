@@ -1,6 +1,7 @@
 Summary:	LibMPEG3 decodes the many many derivatives of MPEG standards
+Summary(pl):	LibMPEG3 dekoduje wiele alternatywnych standardów MPEG
 Name:		libmpeg3
-Version:	1.2.2
+Version:	1.2.3
 Release:	1
 License:	GPL
 Group:		Libraries
@@ -28,8 +29,13 @@ libmpeg3 currently decodes:
   MPEG-2 system streams
   MPEG-1 system streams
 
+%description -l pl
+LibMPEG3 dekoduje wiele odmian standardu MPEG w nieskompresowany
+strumieñ, który ³atwo jest odtwarzaæ lub edytowaæ.
+
 %package devel
 Summary:	Header files for developing programs using libmpeg3
+Summary(pl):	Pliki nag³ówkowe do rozwijania programów u¿ywaj±cych libmpeg3
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
 
@@ -37,22 +43,35 @@ Requires:	%{name} = %{version}
 This package is all you need to develop programs that handle the
 various video and audio file formats supported by libmpeg3.
 
+%description -l pl devel
+Ten pakiet to wszystko czego potrzebujesz by rozwijaæ programy
+obs³uguj±ce ró¿ne formaty plików wideo oraz audio wspierane przez libmpeg3.
+
 %package static
 Summary:	Static libmpeg3 library
+Summary(pl):	Statyczna biblioteka libmpeg3
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}
 
 %description static
 Static libmpeg3 library.
 
+%description -l pl static
+Statyczna biblioteka libmpeg3.
+
 %package progs
-Summary:	libgr utility programs
+Summary:	libmpeg3 utility programs
+Summary(pl):	programy u¿ytkowe
 Group:		Applications/Graphics
 Requires:	%{name} = %{version}
 
 %description progs
 This package includes various utility programs for manipulating MPEG
 files for use by libmpeg3 programs.
+
+%description -l pl progs
+Ten pakiet zawiera ró¿ne programy narzêdziowe do manipulowania
+plikami MPEG.
 
 %prep
 %setup -q
@@ -62,7 +81,7 @@ files for use by libmpeg3 programs.
 ln -sf . libmpeg3
 
 %build
-%{__make} CFLAGS="$RPM_OPT_FLAGS -I./ -I../"
+%{__make} CFLAGS="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS} -I./ -I../"
 
 %install
 rm -rf $RPM_BUILD_ROOT
