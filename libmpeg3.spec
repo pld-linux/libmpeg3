@@ -1,15 +1,16 @@
 Summary:	LibMPEG3 decodes the many many derivatives of MPEG standards
 Summary(pl):	LibMPEG3 dekoduje wiele alternatywnych standardów MPEG
 Name:		libmpeg3
-Version:	1.5
-Release:	4
+Version:	1.5.0
+Release:	1
 License:	GPL
 Group:		Libraries
-Source0:	http://heroinewarrior.com/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/heroines/%{name}-%{version}-src.tar.bz2
 URL:		http://heroinewarriors.com/libmpeg3.php3
-Patch0:		%{name}-install.patch
-Patch1:		%{name}-opt.patch
-Patch2:		%{name}-shared.patch
+Patch0:		%{name}-acam.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool
 BuildRequires:	nasm
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -79,17 +80,22 @@ Ten pakiet zawiera ró¿ne programy narzêdziowe do manipulowania plikami
 MPEG.
 
 %prep
-%setup -q -n %{name}
+%setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 %build
-%{__make} \
-	OPT="%{rpmcflags} %{!?debug:-fomit-frame-pointer}" \
+%{__libtoolize}
+%{__aclocal}
+%{__autoheader}
+%{__autoconf}
+%{__automake}
+CFLAGS="%{rpmcflags} %{!?debug:-fomit-frame-pointer}"
+%configure \
 %ifarch i586 i686 athlon
-	USE_MMX=1
+	--enable-mmx
 %endif
+
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -111,6 +117,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc docs/index.html
 %attr(755,root,root) %{_libdir}/libmpeg3.so
+%{_libdir}/libmpeg3.la
 %{_includedir}/libmpeg3
 
 %files static

@@ -1,0 +1,154 @@
+--- libmpeg3-1.5.0/Makefile.am.orig	Thu Jan  1 01:00:00 1970
++++ libmpeg3-1.5.0/Makefile.am	Thu Feb 27 23:49:21 2003
+@@ -0,0 +1,99 @@
++NASM = sh ./strip_fPIC.sh nasm
++
++if USE_MMX
++ASMSRC = video/mmxidct.S
++NASMSRC = video/reconmmx.s
++NASMOBJ = reconmmx.lo
++else
++ASMSRC =
++NASMSRC =
++NASMOBJ =
++endif
++
++SRC = \
++	audio/ac3.c \
++	audio/dct.c \
++	audio/huffman.c \
++	audio/layer2.c \
++	audio/layer3.c \
++	audio/mpeg3audio.c \
++	audio/pcm.c \
++	audio/synthesizers.c \
++	audio/tables.c \
++	bitstream.c \
++	libmpeg3.c \
++	mpeg3atrack.c \
++	mpeg3css.c \
++	mpeg3demux.c \
++	mpeg3ifo.c \
++	mpeg3io.c \
++	mpeg3title.c \
++	mpeg3vtrack.c \
++	video/getpicture.c \
++	video/headers.c \
++	video/idct.c \
++	video/macroblocks.c \
++	video/mmxtest.c \
++	video/motion.c \
++	video/mpeg3video.c \
++	video/output.c \
++	video/reconstruct.c \
++	video/seek.c \
++	video/slice.c \
++	video/vlc.c \
++	workarounds.c
++
++mincdir = $(includedir)/libmpeg3
++maincdir = $(mincdir)/audio
++mvincdir = $(mincdir)/video
++
++minc_HEADERS = \
++	bitstream.h \
++	ifo.h \
++	libmpeg3.h \
++	mpeg3atrack.h \
++	mpeg3css.h \
++	mpeg3demux.h \
++	mpeg3io.h \
++	mpeg3private.h \
++	mpeg3protos.h \
++	mpeg3title.h \
++	mpeg3vtrack.h \
++	timecode.h \
++	workarounds.h
++
++mainc_HEADERS = \
++	audio/ac3.h \
++	audio/huffman.h \
++	audio/mpeg3audio.h \
++	audio/tables.h
++
++mvinc_HEADERS = \
++	video/idct.h \
++	video/layerdata.h \
++	video/mpeg3video.h \
++	video/mpeg3videoprotos.h \
++	video/slice.h \
++	video/vlc.h
++
++lib_LTLIBRARIES = libmpeg3.la
++
++bin_PROGRAMS = mpeg3dump mpeg3cat mpeg3toc
++
++LIBS = -lm -lpthread
++
++libmpeg3_la_SOURCES = $(ASMSRC) $(SRC)
++libmpeg3_la_LIBADD = $(NASMOBJ) -la52
++libmpeg3_la_LDFLAGS = -version-info 1:5:0
++
++mpeg3dump_SOURCES = mpeg3dump.c
++mpeg3dump_LDADD = libmpeg3.la
++
++mpeg3cat_SOURCES = mpeg3cat.c
++mpeg3cat_LDADD = libmpeg3.la
++
++mpeg3toc_SOURCES = mpeg3toc.c
++mpeg3toc_LDADD = libmpeg3.la
++
++reconmmx.lo: $(NASMSRC)
++	$(LIBTOOL) --mode=compile --tag=NASM $(NASM) -f elf $(NASMSRC) -o $(NASMOBJ)
+--- libmpeg3-1.5.0/configure.in.orig	Thu Jan  1 01:00:00 1970
++++ libmpeg3-1.5.0/configure.in	Thu Feb 27 23:35:04 2003
+@@ -0,0 +1,29 @@
++AC_INIT(libmpeg3, 1.5.0)
++AM_INIT_AUTOMAKE(libmpeg3, 1.5.0)
++AC_CONFIG_HEADER([config.h])
++
++AC_PROG_CC
++AC_PROG_CPP
++AC_PROG_INSTALL
++AC_PROG_LIBTOOL
++AM_PROG_AS
++
++AC_ARG_ENABLE(mmx, AC_HELP_STRING([--enable-mmx],[use MMX]),
++	[use_mmx=$enableval], [use_mmx=no])
++
++AM_CONDITIONAL(USE_MMX, [test "$use_mmx" != "no"])
++if test "$use_mmx" != "no"; then
++	AC_DEFINE(HAVE_MMX,,[use MMX])
++fi
++
++AC_ARG_ENABLE(css, AC_HELP_STRING([--disable-css],[disable CSS]),
++	[use_css=$enableval], [use_css=yes])
++
++if test "$use_css" != "no"; then
++	AC_DEFINE(HAVE_CSS,,[enable CSS])
++fi
++
++CFLAGS="${CFLAGS} -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -I/usr/include/a52dec"
++
++AC_CONFIG_FILES([Makefile])
++AC_OUTPUT
+--- libmpeg3-1.5.0/strip_fPIC.sh.orig	Thu Jan  1 01:00:00 1970
++++ libmpeg3-1.5.0/strip_fPIC.sh	Thu Feb 27 23:51:20 2003
+@@ -0,0 +1,17 @@
++#!/bin/sh
++#
++# taken from flac sources  --qboosh
++#
++# libtool assumes that the compiler can handle the -fPIC flag
++# This isn't always true (for example, nasm can't handle it)
++command=""
++while [ $1 ]; do
++	if [ "$1" != "-fPIC" ]; then
++		if [ "$1" != "-DPIC" ]; then
++			command="$command $1"
++		fi
++	fi
++	shift
++done
++echo $command
++exec $command
