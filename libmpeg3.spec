@@ -83,7 +83,7 @@ plikami MPEG.
 ln -sf . libmpeg3
 
 %build
-CFLAGS="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS} -I./ -I../"
+CFLAGS="%{rpmcflags} -I./ -I../"
 export CFLAGS
 ./configure \
 %ifnarch %{ix86}
