@@ -9,6 +9,7 @@ Source0:	http://dl.sourceforge.net/heroines/%{name}-%{version}-src.tar.bz2
 URL:		http://heroinewarriors.com/libmpeg3.php3
 Patch0:		%{name}-acam.patch
 Patch1:		%{name}-pthread.patch
+BuildRequires:	a52-libs-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -44,6 +45,7 @@ Summary:	Header files for developing programs using libmpeg3
 Summary(pl):	Pliki nag³ówkowe do rozwijania programów u¿ywaj±cych libmpeg3
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
+Requires:	a52-libs-devel
 
 %description devel
 This package is all you need to develop programs that handle the
