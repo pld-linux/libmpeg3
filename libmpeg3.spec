@@ -1,5 +1,5 @@
-Summary:	LibMPEG3 decodes the many many derivatives of MPEG standards
-Summary(pl):	LibMPEG3 dekoduje wiele alternatywnych standardów MPEG
+Summary:	LibMPEG3 - decoding of many many derivatives of MPEG standards
+Summary(pl):	LibMPEG3 - dekodowanie wielu alternatywnych standardów MPEG
 Name:		libmpeg3
 Version:	1.5.4
 Release:	1
@@ -37,8 +37,8 @@ libmpeg3 currently decodes:
 
 %description -l pl
 LibMPEG3 dekoduje wiele odmian standardu MPEG w nieskompresowany
-strumieñ, który ³atwo jest odtwarzaæ lub edytowaæ. Aktualnie potrafi
-dekodowaæ: d¼wiêk MPEG-1 Layer II i III oraz MPEG-2 Layer 3,
+strumieñ, który ³atwo jest odtwarzaæ lub modyfikowaæ. Aktualnie
+potrafi dekodowaæ: d¼wiêk MPEG-1 Layer II i III oraz MPEG-2 Layer 3,
 strumienie MPEG-1 i MPEG-2, d¼wiêk AC3, obraz MPEG-1 i MPEG-2, pliki
 IFO oraz VOB.
 
