@@ -5,7 +5,7 @@ Version:	1.5
 Release:	4
 License:	GPL
 Group:		Libraries
-Source0:	http://heroinewarrior.com/%{name}-%{version}.tar.gz 
+Source0:	http://heroinewarrior.com/%{name}-%{version}.tar.gz
 URL:		http://heroinewarriors.com/libmpeg3.php3
 Patch0:		%{name}-install.patch
 Patch1:		%{name}-opt.patch
