@@ -1,246 +1,126 @@
-diff -ur libmpeg3-1.2.2/Makefile libmpeg3-1.2.2.shared/Makefile
---- libmpeg3-1.2.2/Makefile	Fri Nov 10 21:03:01 2000
-+++ libmpeg3-1.2.2.shared/Makefile	Sun Nov 19 00:56:07 2000
-@@ -2,6 +2,11 @@
- CFLAGS += -g
- export CFLAGS
+diff -Nur libmpeg3.orig/Makefile libmpeg3/Makefile
+--- libmpeg3.orig/Makefile	Sat Apr  6 00:16:49 2002
++++ libmpeg3/Makefile	Sat Apr  6 00:45:24 2002
+@@ -65,6 +65,7 @@
+ ifeq ($(USE_MMX), 1)
+   CFLAGS += -DHAVE_MMX
+   ASMOBJS = $(OBJDIR)/video/mmxidct.o
++  SHAREDASMOBJS = $(OBJDIR)/video/mmxidct_pic.o
+   NASMOBJS = $(OBJDIR)/video/reconmmx.o
+ endif
  
+@@ -81,7 +82,10 @@
+ 
+ 
+ 
+-
 +MAJOR = 1
-+MINOR = 2
-+MICRO = 3
-+CFLAGSSHARE = -shared -Wl,-soname,libmpeg3.so.$(MAJOR)
-+
- OBJS = \
- 	bitstream.o \
- 	libmpeg3.o \
-@@ -14,6 +19,18 @@
- 	mpeg3toc2.o \
- 	mpeg3vtrack.o
++MINOR = 5
++MICRO = 0
++LDFLAGSSHARE = -shared -Wl,-soname,libmpeg3.so.$(MAJOR)
  
-+OBJS_SHARED = \
-+	bitstream_pic.o \
-+	libmpeg3_pic.o \
-+	mpeg3atrack_pic.o \
-+	mpeg3css_pic.o \
-+	mpeg3demux_pic.o \
-+	mpeg3ifo_pic.o \
-+	mpeg3io_pic.o \
-+	mpeg3title_pic.o \
-+	mpeg3toc2_pic.o \
-+	mpeg3vtrack_pic.o
-+
- AUDIOOBJS = \
- 	audio/ac3.o \
- 	audio/bit_allocation.o \
-@@ -28,6 +45,20 @@
- 	audio/synthesizers.o \
- 	audio/tables.o
+ UTILOBJS = \
+ 	$(OBJDIR)/mpeg3cat.o \
+@@ -126,8 +130,44 @@
+ 	$(OBJDIR)/video/vlc.o \
+ 	$(OBJDIR)/workarounds.o
  
-+AUDIOOBJS_SHARED = \
-+	audio/ac3_pic.o \
-+	audio/bit_allocation_pic.o \
-+	audio/dct_pic.o \
-+	audio/exponents_pic.o \
-+	audio/header_pic.o \
-+	audio/layer2_pic.o \
-+	audio/layer3_pic.o \
-+	audio/mantissa_pic.o \
-+	audio/mpeg3audio_pic.o \
-+	audio/pcm_pic.o \
-+	audio/synthesizers_pic.o \
-+	audio/tables_pic.o
++SHAREDOBJS = \
++	$(OBJDIR)/bitstream_pic.o \
++	$(OBJDIR)/libmpeg3_pic.o \
++	$(OBJDIR)/mpeg3atrack_pic.o \
++	$(OBJDIR)/mpeg3css_pic.o \
++	$(OBJDIR)/mpeg3demux_pic.o \
++	$(OBJDIR)/mpeg3ifo_pic.o \
++	$(OBJDIR)/mpeg3io_pic.o \
++	$(OBJDIR)/mpeg3title_pic.o \
++	$(OBJDIR)/mpeg3vtrack_pic.o \
++	$(OBJDIR)/audio/ac3_pic.o \
++	$(OBJDIR)/audio/bit_allocation_pic.o \
++	$(OBJDIR)/audio/dct_pic.o \
++	$(OBJDIR)/audio/exponents_pic.o \
++	$(OBJDIR)/audio/header_pic.o \
++	$(OBJDIR)/audio/layer2_pic.o \
++	$(OBJDIR)/audio/layer3_pic.o \
++	$(OBJDIR)/audio/mantissa_pic.o \
++	$(OBJDIR)/audio/mpeg3audio_pic.o \
++	$(OBJDIR)/audio/pcm_pic.o \
++	$(OBJDIR)/audio/synthesizers_pic.o \
++	$(OBJDIR)/audio/tables_pic.o \
++	$(OBJDIR)/video/getpicture_pic.o \
++	$(OBJDIR)/video/headers_pic.o \
++	$(OBJDIR)/video/idct_pic.o \
++	$(OBJDIR)/video/macroblocks_pic.o \
++	$(OBJDIR)/video/mmxtest_pic.o \
++	$(OBJDIR)/video/motion_pic.o \
++	$(OBJDIR)/video/mpeg3video_pic.o \
++	$(OBJDIR)/video/output_pic.o \
++	$(OBJDIR)/video/reconstruct_pic.o \
++	$(OBJDIR)/video/seek_pic.o \
++	$(OBJDIR)/video/slice_pic.o \
++	$(OBJDIR)/video/vlc_pic.o \
++	$(OBJDIR)/workarounds_pic.o
 +
- VIDEOOBJS = \
- 	video/getpicture.o \
- 	video/headers.o \
-@@ -42,38 +73,62 @@
- 	video/slice.o \
- 	video/vlc.o
- 
-+VIDEOOBJS_SHARED = \
-+	video/getpicture_pic.o \
-+	video/headers_pic.o \
-+	video/idct_pic.o \
-+	video/macroblocks_pic.o \
-+	video/mmxtest_pic.o \
-+	video/motion_pic.o \
-+	video/mpeg3video_pic.o \
-+	video/output_pic.o \
-+	video/reconstruct_pic.o \
-+	video/seek_pic.o \
-+	video/slice_pic.o \
-+	video/vlc_pic.o
-+
- OUTPUT = libmpeg3.a
-+OUTPUT_SHARED = libmpeg3.so.$(MAJOR).$(MINOR).$(MICRO)
- UTILS = dump mpeg3cat mpeg3toc mpeg3split
+ OUTPUT = $(OBJDIR)/libmpeg3.a
+-SHAREDOUTPUT = $(OBJDIR)/libmpeg3.so
++SHAREDOUTPUT = $(OBJDIR)/libmpeg3.so.$(MAJOR).$(MINOR).$(MICRO)
+ UTILS = $(OBJDIR)/mpeg3dump $(OBJDIR)/mpeg3cat $(OBJDIR)/mpeg3toc $(OBJDIR)/mpeg3split
  LIBS = -lm -lpthread
  
--all: $(OUTPUT) util
-+all: $(OUTPUT) $(OUTPUT_SHARED) util
+@@ -140,20 +180,21 @@
+ $(OUTPUT): $(OBJS) $(ASMOBJS) $(NASMOBJS) $(UTILOBJS)
+ 	ar rcs $(OUTPUT) $(OBJS) $(ASMOBJS) $(NASMOBJS)
  
- $(OUTPUT): $(OBJS)
- 	$(MAKE) -C audio
- 	$(MAKE) -C video
- 	ar rcs $(OUTPUT) $(OBJS) $(MMXOBJS) $(VIDEOOBJS) $(AUDIOOBJS) $(IFOOBJS)
+-$(SHAREDOUTPUT): $(OBJS) $(ASMOBJS) $(NASMOBJS)
+-	gcc -shared -o $(SHAREDOUTPUT) $(OBJS) $(ASMOBJS) $(NASMOBJS)
++$(SHAREDOUTPUT): $(SHAREDOBJS) $(SHAREDASMOBJS) $(NASMOBJS)
++	$(CC) $(LDFLAGSSHARE) -o $(SHAREDOUTPUT) $(SHAREDOBJS) $(SHAREDASMOBJS) $(NASMOBJS)
++	ln -sf $(SHAREDOUTPUT) libmpeg3.so
  
--dump: dump.o $(OUTPUT)
--	$(CC) -o dump dump.o $(OUTPUT) $(LIBS)
-+$(OUTPUT_SHARED): $(OBJS_SHARED)
-+	$(MAKE) -C audio
-+	$(MAKE) -C video
-+	$(CC) $(CFLAGSSHARE) -o $(OUTPUT_SHARED) $(MMXOBJS_SHARED) $(VIDEOOBJS_SHARED) $(AUDIOOBJS_SHARED) $(IFOOBJS_SHARED) $(OBJS_SHARED)
-+	ln -sf $(OUTPUT_SHARED) libmpeg3.so
+ $(OBJDIR)/mpeg3dump: $(OUTPUT)
+-	$(CC) -o $(OBJDIR)/mpeg3dump mpeg3dump.c $(OUTPUT) $(LIBS)
++	$(CC) -o $(OBJDIR)/mpeg3dump mpeg3dump.c -L. -lmpeg3 $(LIBS)
  
--mpeg3cat: mpeg3cat.o $(OUTPUT)
--	$(CC) -o mpeg3cat mpeg3cat.o $(OUTPUT) $(LIBS)
-+dump: dump.o $(OUTPUT_SHARED)
-+	$(CC) -o dump dump.o -L. -lmpeg3 $(LIBS)
+ $(OBJDIR)/mpeg3cat: $(OUTPUT)
+-	$(CC) -o $(OBJDIR)/mpeg3cat mpeg3cat.c $(OUTPUT) $(LIBS)
++	$(CC) -o $(OBJDIR)/mpeg3cat mpeg3cat.c -L. -lmpeg3 $(LIBS)
  
--mpeg3toc: mpeg3toc.o $(OUTPUT)
--	$(CC) -o mpeg3toc mpeg3toc.o $(OUTPUT) $(LIBS)
-+mpeg3cat: mpeg3cat.o $(OUTPUT_SHARED)
-+	$(CC) -o mpeg3cat mpeg3cat.o -L. -lmpeg3 $(LIBS)
+ $(OBJDIR)/mpeg3toc: $(OUTPUT)
+-	$(CC) -o $(OBJDIR)/mpeg3toc mpeg3toc.c $(OUTPUT) $(LIBS)
++	$(CC) -o $(OBJDIR)/mpeg3toc mpeg3toc.c -L. -lmpeg3 $(LIBS)
  
--mpeg3split: mpeg3split.o $(OUTPUT)
--	$(CC) -o mpeg3split mpeg3split.o $(OUTPUT) $(LIBS)
-+mpeg3toc: mpeg3toc.o $(OUTPUT_SHARED)
-+	$(CC) -o mpeg3toc mpeg3toc.o -L. -lmpeg3 $(LIBS)
+ $(OBJDIR)/mpeg3split: $(OUTPUT)
+-	$(CC) -o $(OBJDIR)/mpeg3split mpeg3split.c $(OUTPUT) $(LIBS)
++	$(CC) -o $(OBJDIR)/mpeg3split mpeg3split.c -L. -lmpeg3 $(LIBS)
+ 
+ $(OBJDIR)/mpeg2qt: $(OUTPUT)
+ 	$(CC) -o $(OBJDIR)/mpeg2qt mpeg2qt.c \
+@@ -181,6 +222,8 @@
+ 	             install -m 644 $(INSTALL_VHEADERS) $(DESTDIR)/usr/include/libmpeg3/video
+ 	             install -m 644 $(OUTPUT) $(DESTDIR)/usr/lib
+ 	             install $(SHAREDOUTPUT) $(DESTDIR)/usr/lib
++		     ln -sf libmpeg3.so.$(MAJOR).$(MINOR).$(MICRO) $(DESTDIR)/usr/lib/libmpeg3.so.$(MAJOR)
++		     ln -sf libmpeg3.so.$(MAJOR).$(MINOR).$(MICRO) $(DESTDIR)/usr/lib/libmpeg3.so
+ 
+ 
+ 
+@@ -201,6 +244,12 @@
+ $(NASMOBJS): 
+ 	$(NASM) -f elf $(subst $(OBJDIR)/,, $*.s) -o $*.o
+ 
++$(OBJDIR)/%_pic.o : %.c
++	$(CC) -c -fPIC -DPIC `cat $(OBJDIR)/c_flags` $< -o $@
 +
-+mpeg3split: mpeg3split.o $(OUTPUT_SHARED)
-+	$(CC) -o mpeg3split mpeg3split.o -L. -lmpeg3 $(LIBS)
- 
- util: $(UTILS)
- 
- .c.o:
--	$(CC) -c `./c_flags` $*.c
-+	$(CC) -c $(CFLAGS) $*.c
++$(OBJDIR)/%_pic.o : %.S
++	$(CC) -c -fPIC -DPIC `cat $(OBJDIR)/c_flags` $< -o $@
 +
-+%_pic.o: %.c
-+	$(CC) -fPIC $(CFLAGS) -c $< -o $@
- 
- clean:
- 	make -C audio clean
- 	make -C video clean
--	rm -f core *.o $(OUTPUT)
-+	rm -f core *.o *.so* $(OUTPUT)
- 	rm -f $(UTILS)
- 
- backup: clean
-diff -ur libmpeg3-1.2.2/audio/Makefile libmpeg3-1.2.2.shared/audio/Makefile
---- libmpeg3-1.2.2/audio/Makefile	Fri Nov 10 21:03:01 2000
-+++ libmpeg3-1.2.2.shared/audio/Makefile	Sun Nov 19 00:17:35 2000
-@@ -15,10 +15,27 @@
- 	synthesizers.o \
- 	tables.o
- 
--all: $(OBJS)
-+OBJS_SHARED = \
-+	ac3_pic.o \
-+	bit_allocation_pic.o \
-+	dct_pic.o \
-+	exponents_pic.o \
-+	header_pic.o \
-+	layer2_pic.o \
-+	layer3_pic.o \
-+	mantissa_pic.o \
-+	mpeg3audio_pic.o \
-+	pcm_pic.o \
-+	synthesizers_pic.o \
-+	tables_pic.o
-+
-+all: $(OBJS) $(OBJS_SHARED)
- 
- .c.o:
--	$(CC) -c `./c_flags` $*.c
-+	$(CC) -c $(CFLAGS) $*.c
-+
-+%_pic.o: %.c
-+	$(CC) -fPIC $(CFLAGS) -c $< -o $@
- 
- .s.o:
- 	$(CC) -f elf $*.s
-diff -ur libmpeg3-1.2.2/configure libmpeg3-1.2.2.shared/configure
---- libmpeg3-1.2.2/configure	Fri Nov 10 21:03:01 2000
-+++ libmpeg3-1.2.2.shared/configure	Sun Nov 19 00:24:34 2000
-@@ -60,6 +60,12 @@
- MMXOBJS2 = \
- 	mmxidct.o \
- 	reconmmx.o
-+MMXOBJS_SHARED = \
-+	video/mmxidct_pic.o \
-+	video/reconmmx_pic.o
-+MMXOBJS2_SHARED = \
-+	mmxidct_pic.o \
-+	reconmmx_pic.o
- EOF
- fi
- 
-diff -ur libmpeg3-1.2.2/global_config libmpeg3-1.2.2.shared/global_config
---- libmpeg3-1.2.2/global_config	Fri Nov 10 21:03:01 2000
-+++ libmpeg3-1.2.2.shared/global_config	Sun Nov 19 00:52:22 2000
-@@ -1,7 +1,10 @@
- # DO NOT EDIT.  EDIT ./configure INSTEAD AND RERUN IT.
-+CFLAGS = -O2 -funroll-loops -fomit-frame-pointer -malign-loops=2 -malign-jumps=2 -malign-functions=2 -march=i486 -I/usr/local/include
- CC = gcc
- NASM = nasm
- CFLAGS += -DHAVE_CSS
- CFLAGS += -DHAVE_MMX
- MMXOBJS = 	video/mmxidct.o 	video/reconmmx.o
- MMXOBJS2 = 	mmxidct.o 	reconmmx.o
-+MMXOBJS_SHARED = 	video/mmxidct_pic.o 	video/reconmmx_pic.o
-+MMXOBJS2_SHARED = 	mmxidct_pic.o 	reconmmx_pic.o
-diff -ur libmpeg3-1.2.2/video/Makefile libmpeg3-1.2.2.shared/video/Makefile
---- libmpeg3-1.2.2/video/Makefile	Fri Nov 10 21:03:01 2000
-+++ libmpeg3-1.2.2.shared/video/Makefile	Sun Nov 19 00:49:47 2000
-@@ -15,17 +15,40 @@
- 	slice.o \
- 	vlc.o
- 
-+OBJS_SHARED = \
-+	getpicture_pic.o \
-+	headers_pic.o \
-+	idct_pic.o \
-+	macroblocks_pic.o \
-+	mmxtest_pic.o \
-+	motion_pic.o \
-+	mpeg3video_pic.o \
-+	output_pic.o \
-+	reconstruct_pic.o \
-+	seek_pic.o \
-+	slice_pic.o \
-+	vlc_pic.o
- 
--all: $(OBJS) $(MMXOBJS2)
-+
-+all: $(OBJS) $(MMXOBJS2) $(OBJS_SHARED) $(MMXOBJS2_SHARED)
- 
- .c.o:
--	$(CC) -c `./c_flags` $*.c
-+	$(CC) -c $(CFLAGS) $*.c
-+
-+%_pic.o: %.c
-+	$(CC) -fPIC $(CFLAGS) -c $< -o $@
- 
- .s.o:
- 	$(NASM) -f elf $*.s
- 
-+%_pic.o: %.s
-+	$(NASM) -f elf $< -o $@
-+
- .S.o:
--	$(CC) -c `./c_flags` $*.S
-+	$(CC) -c $(CFLAGS) $*.S
-+
-+%_pic.o: %.S
-+	$(CC) -fPIC $(CFLAGS) -c $< -o $@
- 
- clean:
- 	rm -f *.o 
-diff -ur libmpeg3-1.2.2/video/slice.c libmpeg3-1.2.2.shared/video/slice.c
---- libmpeg3-1.2.2/video/slice.c	Fri Nov 10 21:03:01 2000
-+++ libmpeg3-1.2.2.shared/video/slice.c	Sun Nov 19 00:45:25 2000
-@@ -228,7 +228,7 @@
+ $(OBJDIR)/bitstream.o:  			    bitstream.c
+ $(OBJDIR)/mpeg3dump.o: 				    mpeg3dump.c
+ $(OBJDIR)/libmpeg3.o: 				    libmpeg3.c
+diff -Nur libmpeg3.orig/video/slice.c libmpeg3/video/slice.c
+--- libmpeg3.orig/video/slice.c	Mon Oct  1 05:18:31 2001
++++ libmpeg3/video/slice.c	Sat Apr  6 00:44:12 2002
+@@ -230,7 +230,7 @@
              	"movq        %%mm0,         (%%eax)\n"
              	"movq        %%mm0,         (%%eax, %1)\n"
              	:

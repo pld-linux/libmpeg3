@@ -1,0 +1,19 @@
+--- libmpeg3/Makefile.orig	Fri Apr  5 22:15:40 2002
++++ libmpeg3/Makefile	Fri Apr  5 22:37:00 2002
+@@ -46,14 +46,14 @@
+ ifeq ($(OBJDIR), alpha)
+   USE_MMX = 0
+   ifneq ($(HAVE_CFLAGS), yes)
+-    CFLAGS = -O4 -arch ev67 -ieee -accept c99_keywords -gcc_messages
++    CFLAGS = $(OPT) -ieee -accept c99_keywords -gcc_messages
+   endif
+ endif
+ 
+ ifeq ($(OBJDIR), i686)
+   USE_MMX = 1
+   ifneq ($(HAVE_CFLAGS), yes)
+-    CFLAGS = -O2 -D_FILE_OFFSET_BITS=64 -fomit-frame-pointer -malign-loops=2 -malign-jumps=2 -malign-functions=2 -I/usr/local/include
++    CFLAGS = $(OPT) -D_FILE_OFFSET_BITS=64
+   endif
+ endif
+ 

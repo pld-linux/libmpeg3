@@ -2,12 +2,14 @@ Summary:	LibMPEG3 decodes the many many derivatives of MPEG standards
 Summary(pl):	LibMPEG3 dekoduje wiele alternatywnych standardów MPEG
 Name:		libmpeg3
 Version:	1.5
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries
 Source0:	http://heroinewarrior.com/%{name}-%{version}.tar.gz 
 URL:		http://heroinewarriors.com/libmpeg3.php3
-Patch0:	%{name}-install.patch
+Patch0:		%{name}-install.patch
+Patch1:		%{name}-opt.patch
+Patch2:		%{name}-shared.patch
 BuildRequires:	nasm
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -16,21 +18,24 @@ LibMPEG3 decodes the many many derivatives of MPEG standards into
 uncompressed data suitable for editing and playback.
 
 libmpeg3 currently decodes:
-   PEG-1 Layer II Audio
-   MPEG-1 Layer III Audio
-   MPEG-2 Layer III Audio
-   MPEG-1 program streams
-   MPEG-2 program streams
-   MPEG-2 transport streams
-   AC3 Audio
-   MPEG-2 Video
-   MPEG-1 Video
-   IFO files
-   VOB files
+ - MPEG-1 Layer II Audio
+ - MPEG-1 Layer III Audio
+ - MPEG-2 Layer III Audio
+ - MPEG-1 program streams
+ - MPEG-2 program streams
+ - MPEG-2 transport streams
+ - AC3 Audio
+ - MPEG-2 Video
+ - MPEG-1 Video
+ - IFO files
+ - VOB files
 
 %description -l pl
 LibMPEG3 dekoduje wiele odmian standardu MPEG w nieskompresowany
-strumieñ, który ³atwo jest odtwarzaæ lub edytowaæ.
+strumieñ, który ³atwo jest odtwarzaæ lub edytowaæ. Aktualnie potrafi
+dekodowaæ: d¼wiêk MPEG-1 Layer II i III oraz MPEG-2 Layer 3,
+strumienie MPEG-1 i MPEG-2, d¼wiêk AC3, obraz MPEG-1 i MPEG-2, pliki
+IFO oraz VOB.
 
 %package devel
 Summary:	Header files for developing programs using libmpeg3
@@ -76,44 +81,37 @@ MPEG.
 %prep
 %setup -q -n %{name}
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %build
-#%ifarch i386|i486|i586|i686
-#CFLAGS="%{optcflags} -O3 -malign-loops=2 -malign-jumps=2 -malign-functions=2 -ffast-math -fomit-frame-pointer 
-#-funroll-loops -fexpensive-optimizations -fstrength-reduce "
-#export CFLAGS
-#%endif
-%{__make}
+%{__make} \
+	OPT="%{rpmcflags} %{!?debug:-fomit-frame-pointer}" \
+%ifarch i586 i686 athlon
+	USE_MMX=1
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT/usr
-
-gzip -9nf docs/*.html
-
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post   -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libmpeg3.so
+%attr(755,root,root) %{_libdir}/libmpeg3.so.*.*
 
 %files devel
 %defattr(644,root,root,755)
-%doc docs/index.html.gz
+%doc docs/index.html
 %attr(755,root,root) %{_libdir}/libmpeg3.so
-%dir %{_includedir}/libmpeg3
-%dir %{_includedir}/libmpeg3/audio
-%dir %{_includedir}/libmpeg3/video
-%{_includedir}/libmpeg3/*.h
-%{_includedir}/libmpeg3/*.inc
-%{_includedir}/libmpeg3/audio/*.h
-%{_includedir}/libmpeg3/video/*.h
+%{_includedir}/libmpeg3
 
 %files static
 %defattr(644,root,root,755)
