@@ -5,6 +5,10 @@ Version:	1.2.3
 Release:	2
 License:	GPL
 Group:		Libraries
+Group(de):	Libraries
+Group(es):	Bibliotecas
+Group(fr):	Librairies
+Group(pl):	Biblioteki
 URL:		http://heroine.linuxave.net/libmpeg3.html
 Source0:	http://heroine.linuxave.net/%{name}-%{version}.tar.gz
 Patch0:		%{name}-shared.patch
@@ -38,6 +42,9 @@ strumieñ, który ³atwo jest odtwarzaæ lub edytowaæ.
 Summary:	Header files for developing programs using libmpeg3
 Summary(pl):	Pliki nag³ówkowe do rozwijania programów u¿ywaj±cych libmpeg3
 Group:		Development/Libraries
+Group(de):	Entwicklung/Libraries
+Group(fr):	Development/Librairies
+Group(pl):	Programowanie/Biblioteki
 Requires:	%{name} = %{version}
 
 %description devel
@@ -46,12 +53,16 @@ various video and audio file formats supported by libmpeg3.
 
 %description -l pl devel
 Ten pakiet to wszystko czego potrzebujesz by rozwijaæ programy
-obs³uguj±ce ró¿ne formaty plików wideo oraz audio wspierane przez libmpeg3.
+obs³uguj±ce ró¿ne formaty plików wideo oraz audio wspierane przez
+libmpeg3.
 
 %package static
 Summary:	Static libmpeg3 library
 Summary(pl):	Statyczna biblioteka libmpeg3
 Group:		Development/Libraries
+Group(de):	Entwicklung/Libraries
+Group(fr):	Development/Librairies
+Group(pl):	Programowanie/Biblioteki
 Requires:	%{name}-devel = %{version}
 
 %description static
@@ -64,6 +75,8 @@ Statyczna biblioteka libmpeg3.
 Summary:	libmpeg3 utility programs
 Summary(pl):	programy u¿ytkowe
 Group:		Applications/Graphics
+Group(de):	Applikationen/Grafik
+Group(pl):	Aplikacje/Grafika
 Requires:	%{name} = %{version}
 
 %description progs
@@ -71,8 +84,8 @@ This package includes various utility programs for manipulating MPEG
 files for use by libmpeg3 programs.
 
 %description -l pl progs
-Ten pakiet zawiera ró¿ne programy narzêdziowe do manipulowania
-plikami MPEG.
+Ten pakiet zawiera ró¿ne programy narzêdziowe do manipulowania plikami
+MPEG.
 
 %prep
 %setup -q
