@@ -9,6 +9,9 @@ Group(de):	Libraries
 Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
+Group(pt_BR):	Bibliotecas
+Group(ru):	Библиотеки
+Group(uk):	Б╕бл╕отеки
 URL:		http://heroine.linuxave.net/libmpeg3.html
 Source0:	http://heroine.linuxave.net/%{name}-%{version}.tar.gz
 Patch0:		%{name}-shared.patch
