@@ -19,14 +19,13 @@ LibMPEG3 decodes the many many derivatives of MPEG standards into
 uncompressed data suitable for editing and playback.
 
 libmpeg3 currently decodes:
-
-  MPEG-2 video
-  MPEG-1 video
-  mp3 audio
-  mp2 audio
-  ac3 audio
-  MPEG-2 system streams
-  MPEG-1 system streams
+- MPEG-2 video,
+- MPEG-1 video,
+- mp3 audio,
+- mp2 audio,
+- ac3 audio,
+- MPEG-2 system streams,
+- MPEG-1 system streams.
 
 %description -l pl
 LibMPEG3 dekoduje wiele odmian standardu MPEG w nieskompresowany
@@ -42,7 +41,7 @@ Requires:	%{name} = %{version}
 This package is all you need to develop programs that handle the
 various video and audio file formats supported by libmpeg3.
 
-%description -l pl devel
+%description devel -l pl
 Ten pakiet to wszystko czego potrzebujesz by rozwijaæ programy
 obs³uguj±ce ró¿ne formaty plików wideo oraz audio wspierane przez
 libmpeg3.
@@ -56,7 +55,7 @@ Requires:	%{name}-devel = %{version}
 %description static
 Static libmpeg3 library.
 
-%description -l pl static
+%description static -l pl
 Statyczna biblioteka libmpeg3.
 
 %package progs
@@ -69,7 +68,7 @@ Requires:	%{name} = %{version}
 This package includes various utility programs for manipulating MPEG
 files for use by libmpeg3 programs.
 
-%description -l pl progs
+%description progs -l pl
 Ten pakiet zawiera ró¿ne programy narzêdziowe do manipulowania plikami
 MPEG.
 
