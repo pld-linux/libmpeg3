@@ -78,10 +78,11 @@ MPEG.
 %patch0 -p1
 
 %build
-%ifarch i386|i486|i586|i686
-CFLAGS="%{optcflags} -O3 -malign-loops=2 -malign-jumps=2 -malign-functions=2 -ffast-math -fomit-frame-pointer -funroll-loops -fexpensive-optimizations -fstrength-reduce "
-export CFLAGS
-%endif
+#%ifarch i386|i486|i586|i686
+#CFLAGS="%{optcflags} -O3 -malign-loops=2 -malign-jumps=2 -malign-functions=2 -ffast-math -fomit-frame-pointer 
+#-funroll-loops -fexpensive-optimizations -fstrength-reduce "
+#export CFLAGS
+#%endif
 %{__make}
 
 %install
@@ -100,12 +101,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so*
+%attr(755,root,root) %{_libdir}/libmpeg3.so
 
 %files devel
 %defattr(644,root,root,755)
 %doc docs/index.html.gz
-%attr(755,root,root) %{_libdir}/lib*.so
+%attr(755,root,root) %{_libdir}/libmpeg3.so
 %dir %{_includedir}/libmpeg3
 %dir %{_includedir}/libmpeg3/audio
 %dir %{_includedir}/libmpeg3/video
@@ -116,7 +117,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/libmpeg3.a
 
 %files progs
 %defattr(644,root,root,755)
