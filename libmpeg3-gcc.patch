@@ -1,0 +1,70 @@
+diff -Nur libmpeg3-1.2.3.orig/video/Makefile libmpeg3-1.2.3/video/Makefile
+--- libmpeg3-1.2.3.orig/video/Makefile	Mon Feb 12 22:15:34 2001
++++ libmpeg3-1.2.3/video/Makefile	Mon Feb 12 22:15:04 2001
+@@ -36,7 +36,7 @@
+ 	$(CC) -c $(CFLAGS) $*.c
+ 
+ %_pic.o: %.c
+-	$(CC) -fPIC $(CFLAGS) -c $< -o $@
++	$(CC) -fPIC -DPIC $(CFLAGS) -c $< -o $@
+ 
+ .s.o:
+ 	$(NASM) -f elf $*.s
+@@ -48,7 +48,7 @@
+ 	$(CC) -c $(CFLAGS) $*.S
+ 
+ %_pic.o: %.S
+-	$(CC) -fPIC $(CFLAGS) -c $< -o $@
++	$(CC) -fPIC -DPIC $(CFLAGS) -c $< -o $@
+ 
+ clean:
+ 	rm -f *.o 
+diff -Nur libmpeg3-1.2.3.orig/video/output.c libmpeg3-1.2.3/video/output.c
+--- libmpeg3-1.2.3.orig/video/output.c	Mon Jan 22 22:08:19 2001
++++ libmpeg3-1.2.3/video/output.c	Mon Feb 12 22:14:11 2001
+@@ -52,6 +52,10 @@
+ 
+     __asm__ __volatile__(
+         ".align 8\n"
++#ifdef PIC
++/* Argh. gcc won't allocate %ebx when generating PIC - use ugly workaround :/ */
++            "movl           %5,                     %%ebx\n"
++#endif
+         "1:\n"
+             "movd           (%1),                   %%mm0\n"  /* 4 Cb	  0  0  0  0 u3 u2 u1 u0 */
+             "pxor           %%mm7,                  %%mm7\n"
+@@ -180,10 +184,13 @@
+ 
+             "punpcklwd      %%mm3,                  %%mm4\n"
+             "punpckhwd      %%mm3,                  %%mm5\n"
+-
++#ifdef PIC
++            "movq           %%mm4,                  (%4,%%ebx,2)\n"
++            "movq           %%mm5,                  8(%4,%%ebx,2)\n"
++#else
+             "movq           %%mm4,                  (%4,%5,2)\n"
+             "movq           %%mm5,                  8(%4,%5,2)\n"
+-
++#endif
+             "addl           $8,                     %2\n"
+             "addl           $4,                     %0\n"
+             "addl           $4,                     %1\n"
+@@ -200,10 +207,17 @@
+ 			"r" (lum), 
+ 			"r" (cols), 
+ 			"r" (row1) ,
+-			"r" (col1), 
++#ifdef PIC
++			"m" (col1),
++#else
++			"r" (col1),
++#endif
+ 			"m" (x), 
+ 			"m" (mod), 
+ 			"m" (y)
++#ifdef PIC
++	: "ebx"
++#endif
+ 		);
+ }
+ 
