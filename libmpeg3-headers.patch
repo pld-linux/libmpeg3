@@ -1,0 +1,158 @@
+diff -ur libmpeg3-1.2.2/audio/mpeg3audio.h libmpeg3-1.2.2.shared/audio/mpeg3audio.h
+--- libmpeg3-1.2.2/audio/mpeg3audio.h	Fri Nov 10 21:03:01 2000
++++ libmpeg3-1.2.2.shared/audio/mpeg3audio.h	Sun Nov 19 01:07:10 2000
+@@ -1,8 +1,8 @@
+ #ifndef MPEG3AUDIO_H
+ #define MPEG3AUDIO_H
+ 
+-#include "ac3.h"
+-#include "../bitstream.h"
++#include <libmpeg3/audio/ac3.h>
++#include <libmpeg3/bitstream.h>
+ 
+ #define MAXFRAMESIZE 1792
+ #define HDRCMPMASK 0xfffffd00
+diff -ur libmpeg3-1.2.2/bitstream.h libmpeg3-1.2.2.shared/bitstream.h
+--- libmpeg3-1.2.2/bitstream.h	Fri Nov 10 21:03:01 2000
++++ libmpeg3-1.2.2.shared/bitstream.h	Sun Nov 19 01:08:16 2000
+@@ -1,7 +1,7 @@
+ #ifndef BITSTREAM_H
+ #define BITSTREAM_H
+ 
+-#include "mpeg3demux.h"
++#include <libmpeg3/mpeg3demux.h>
+ 
+ //                                    next bit in forward direction
+ //                                  next bit in reverse direction |
+diff -ur libmpeg3-1.2.2/libmpeg3.h libmpeg3-1.2.2.shared/libmpeg3.h
+--- libmpeg3-1.2.2/libmpeg3.h	Fri Nov 10 21:03:01 2000
++++ libmpeg3-1.2.2.shared/libmpeg3.h	Sun Nov 19 01:08:27 2000
+@@ -5,7 +5,7 @@
+ extern "C" {
+ #endif
+ 
+-#include "mpeg3private.h"
++#include <libmpeg3/mpeg3private.h>
+ 
+ 
+ /* Supported color models for mpeg3_read_frame */
+diff -ur libmpeg3-1.2.2/mpeg3atrack.h libmpeg3-1.2.2.shared/mpeg3atrack.h
+--- libmpeg3-1.2.2/mpeg3atrack.h	Fri Nov 10 21:03:01 2000
++++ libmpeg3-1.2.2.shared/mpeg3atrack.h	Sun Nov 19 01:08:44 2000
+@@ -1,8 +1,8 @@
+ #ifndef MPEG3ATRACK_H
+ #define MPEG3ATRACK_H
+ 
+-#include "mpeg3demux.h"
+-#include "audio/mpeg3audio.h"
++#include <libmpeg3/mpeg3demux.h>
++#include <libmpeg3/audio/mpeg3audio.h>
+ 
+ typedef struct
+ {
+diff -ur libmpeg3-1.2.2/mpeg3css.h libmpeg3-1.2.2.shared/mpeg3css.h
+--- libmpeg3-1.2.2/mpeg3css.h	Fri Nov 10 21:03:01 2000
++++ libmpeg3-1.2.2.shared/mpeg3css.h	Sun Nov 19 01:08:54 2000
+@@ -2,7 +2,7 @@
+ #define MPEG3CSS_H
+ 
+ 
+-#include "mpeg3private.inc"
++#include <libmpeg3/mpeg3private.inc>
+ 
+ struct mpeg3_block 
+ {
+diff -ur libmpeg3-1.2.2/mpeg3demux.h libmpeg3-1.2.2.shared/mpeg3demux.h
+--- libmpeg3-1.2.2/mpeg3demux.h	Fri Nov 10 21:03:01 2000
++++ libmpeg3-1.2.2.shared/mpeg3demux.h	Sun Nov 19 01:09:03 2000
+@@ -1,7 +1,7 @@
+ #ifndef MPEG3DEMUX_H
+ #define MPEG3DEMUX_H
+ 
+-#include "mpeg3title.h"
++#include <libmpeg3/mpeg3title.h>
+ #include <stdio.h>
+ 
+ typedef struct
+diff -ur libmpeg3-1.2.2/mpeg3io.h libmpeg3-1.2.2.shared/mpeg3io.h
+--- libmpeg3-1.2.2/mpeg3io.h	Fri Nov 10 21:03:01 2000
++++ libmpeg3-1.2.2.shared/mpeg3io.h	Sun Nov 19 01:09:22 2000
+@@ -3,8 +3,8 @@
+ 
+ 
+ #include <stdio.h>
+-#include "mpeg3css.h"
+-#include "mpeg3private.inc"
++#include <libmpeg3/mpeg3css.h>
++#include <libmpeg3/mpeg3private.inc>
+ 
+ /* Filesystem structure */
+ 
+diff -ur libmpeg3-1.2.2/mpeg3private.h libmpeg3-1.2.2.shared/mpeg3private.h
+--- libmpeg3-1.2.2/mpeg3private.h	Fri Nov 10 21:03:01 2000
++++ libmpeg3-1.2.2.shared/mpeg3private.h	Sun Nov 19 01:09:47 2000
+@@ -1,12 +1,12 @@
+ #ifndef MPEG3PRIVATE_H
+ #define MPEG3PRIVATE_H
+ 
+-#include "mpeg3atrack.h"
+-#include "mpeg3css.h"
+-#include "mpeg3io.h"
+-#include "mpeg3private.inc"
+-#include "mpeg3title.h"
+-#include "mpeg3vtrack.h"
++#include <libmpeg3/mpeg3atrack.h>
++#include <libmpeg3/mpeg3css.h>
++#include <libmpeg3/mpeg3io.h>
++#include <libmpeg3/mpeg3private.inc>
++#include <libmpeg3/mpeg3title.h>
++#include <libmpeg3/mpeg3vtrack.h>
+ 
+ typedef struct
+ {
+diff -ur libmpeg3-1.2.2/mpeg3title.h libmpeg3-1.2.2.shared/mpeg3title.h
+--- libmpeg3-1.2.2/mpeg3title.h	Fri Nov 10 21:03:01 2000
++++ libmpeg3-1.2.2.shared/mpeg3title.h	Sun Nov 19 01:09:57 2000
+@@ -1,7 +1,7 @@
+ #ifndef MPEG3TITLE_H
+ #define MPEG3TITLE_H
+ 
+-#include "mpeg3io.h"
++#include <libmpeg3/mpeg3io.h>
+ 
+ typedef struct
+ {
+diff -ur libmpeg3-1.2.2/mpeg3vtrack.h libmpeg3-1.2.2.shared/mpeg3vtrack.h
+--- libmpeg3-1.2.2/mpeg3vtrack.h	Fri Nov 10 21:03:01 2000
++++ libmpeg3-1.2.2.shared/mpeg3vtrack.h	Sun Nov 19 01:10:10 2000
+@@ -1,8 +1,8 @@
+ #ifndef MPEG3_VTRACK_H
+ #define MPEG3_VTRACK_H
+ 
+-#include "mpeg3demux.h"
+-#include "video/mpeg3video.h"
++#include <libmpeg3/mpeg3demux.h>
++#include <libmpeg3/video/mpeg3video.h>
+ 
+ typedef struct
+ {
+diff -ur libmpeg3-1.2.2/video/mpeg3video.h libmpeg3-1.2.2.shared/video/mpeg3video.h
+--- libmpeg3-1.2.2/video/mpeg3video.h	Fri Nov 10 21:03:01 2000
++++ libmpeg3-1.2.2.shared/video/mpeg3video.h	Sun Nov 19 01:07:59 2000
+@@ -1,11 +1,11 @@
+ #ifndef MPEGVIDEO_H
+ #define MPEGVIDEO_H
+ 
+-#include "../bitstream.h"
+-#include "../mpeg3private.inc"
+-#include "idct.h"
+-#include "slice.h"
+-#include "../timecode.h"
++#include <libmpeg3/bitstream.h>
++#include <libmpeg3/mpeg3private.inc>
++#include <libmpeg3/video/idct.h>
++#include <libmpeg3/video/slice.h>
++#include <libmpeg3/timecode.h>
+ 
+ /* zig-zag scan */
+ extern unsigned char mpeg3_zig_zag_scan_nommx[64];
