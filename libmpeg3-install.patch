@@ -1,5 +1,6 @@
---- libmpeg3-1.2.2.shared/Makefile.orig	Sun Nov 19 00:56:07 2000
-+++ libmpeg3-1.2.2.shared/Makefile	Sun Nov 19 01:26:08 2000
+diff -urN libmpeg3-1.2.3.org/Makefile libmpeg3-1.2.3/Makefile
+--- libmpeg3-1.2.3.org/Makefile	Sat Feb 10 23:20:50 2001
++++ libmpeg3-1.2.3/Makefile	Sat Feb 10 23:20:59 2001
 @@ -87,9 +87,31 @@
  	video/slice_pic.o \
  	video/vlc_pic.o
@@ -65,3 +66,15 @@
  
  backup: clean
  	cd .. && \
+diff -urN libmpeg3-1.2.3.org/configure libmpeg3-1.2.3/configure
+--- libmpeg3-1.2.3.org/configure	Sat Feb 10 23:20:50 2001
++++ libmpeg3-1.2.3/configure	Sat Feb 10 23:21:49 2001
+@@ -38,6 +38,8 @@
+ 
+ if test -z "$CFLAGS"; then
+ 	echo >> global_config "CFLAGS = -O2 -D_FILE_OFFSET_BITS=64 -funroll-loops -fomit-frame-pointer -malign-loops=2 -malign-jumps=2 -malign-functions=2 -march=i486 -I/usr/local/include"
++else
++	echo >> global_config "$CFLAGS"
+ fi
+ 
+ cat >> global_config << EOF
