@@ -11,7 +11,7 @@ Patch0:		%{name}-acam.patch
 Patch1:		%{name}-pthread.patch
 Patch2:		%{name}-int64.patch
 Patch3:		%{name}-declaration.patch
-URL:		http://heroinewarriors.com/libmpeg3.php3
+URL:		http://heroinewarrior.com/libmpeg3.php3
 BuildRequires:	a52dec-libs-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
