@@ -1,16 +1,13 @@
 Summary:	LibMPEG3 decodes the many many derivatives of MPEG standards
 Summary(pl):	LibMPEG3 dekoduje wiele alternatywnych standardów MPEG
 Name:		libmpeg3
-Version:	1.2.3
-Release:	6
+Version:	1.5
+Release:	1
 License:	GPL
 Group:		Libraries
-Source0:	http://heroinewarriors.com/%{name}-%{version}.tar.gz
+Source0:	http://heroinewarrior.com/%{name}-%{version}.tar.gz 
 URL:		http://heroinewarriors.com/libmpeg3.php3
-Patch0:		%{name}-shared.patch
-Patch1:		%{name}-headers.patch
-Patch2:		%{name}-install.patch
-Patch3:		%{name}-gcc.patch
+Patch0:	%{name}-install.patch
 BuildRequires:	nasm
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -19,13 +16,17 @@ LibMPEG3 decodes the many many derivatives of MPEG standards into
 uncompressed data suitable for editing and playback.
 
 libmpeg3 currently decodes:
-- MPEG-2 video,
-- MPEG-1 video,
-- mp3 audio,
-- mp2 audio,
-- ac3 audio,
-- MPEG-2 system streams,
-- MPEG-1 system streams.
+   PEG-1 Layer II Audio
+   MPEG-1 Layer III Audio
+   MPEG-2 Layer III Audio
+   MPEG-1 program streams
+   MPEG-2 program streams
+   MPEG-2 transport streams
+   AC3 Audio
+   MPEG-2 Video
+   MPEG-1 Video
+   IFO files
+   VOB files
 
 %description -l pl
 LibMPEG3 dekoduje wiele odmian standardu MPEG w nieskompresowany
@@ -73,30 +74,21 @@ Ten pakiet zawiera ró¿ne programy narzêdziowe do manipulowania plikami
 MPEG.
 
 %prep
-%setup -q
+%setup -q -n %{name}
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-ln -sf . libmpeg3
 
 %build
-CFLAGS="%{rpmcflags} -I./ -I../"
+%ifarch i386|i486|i586|i686
+CFLAGS="%{optcflags} -O3 -malign-loops=2 -malign-jumps=2 -malign-functions=2 -ffast-math -fomit-frame-pointer -funroll-loops -fexpensive-optimizations -fstrength-reduce "
 export CFLAGS
-./configure \
-%ifnarch %{ix86}
-	--no-mmx \
-	--no-css \
 %endif
-	--nothing
-
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT%{_prefix}
+	DESTDIR=$RPM_BUILD_ROOT/usr
 
 gzip -9nf docs/*.html
 
@@ -108,7 +100,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
+%attr(755,root,root) %{_libdir}/lib*.so*
 
 %files devel
 %defattr(644,root,root,755)
