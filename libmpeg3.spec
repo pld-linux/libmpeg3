@@ -2,7 +2,7 @@ Summary:	LibMPEG3 decodes the many many derivatives of MPEG standards
 Summary(pl):	LibMPEG3 dekoduje wiele alternatywnych standardów MPEG
 Name:		libmpeg3
 Version:	1.2.3
-Release:	2
+Release:	3
 License:	GPL
 Group:		Libraries
 Group(de):	Libraries
@@ -17,8 +17,6 @@ Patch2:		%{name}-install.patch
 Patch3:		%{name}-gcc.patch
 BuildRequires:	nasm
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_prefix		/usr/X11R6
 
 %description
 LibMPEG3 decodes the many many derivatives of MPEG standards into
