@@ -14,7 +14,9 @@ BuildRequires:	a52dec-libs-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
+%ifarch i586 i686 athlon
 BuildRequires:	nasm
+%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
