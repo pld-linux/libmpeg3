@@ -1,14 +1,13 @@
 Summary:	LibMPEG3 decodes the many many derivatives of MPEG standards
 Summary(pl):	LibMPEG3 dekoduje wiele alternatywnych standardów MPEG
 Name:		libmpeg3
-Version:	1.5.3
+Version:	1.5.4
 Release:	1
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/heroines/%{name}-%{version}-src.tar.bz2
-# Source0-md5:	7cd5d6d6a98f54b10ee6e26f14ff5841
+# Source0-md5:	7adfc9c0beea2134575137f2e0d2ef11
 Patch0:		%{name}-acam.patch
-Patch1:		%{name}-declaration.patch
 URL:		http://heroinewarrior.com/libmpeg3.php3
 BuildRequires:	a52dec-libs-devel
 BuildRequires:	autoconf
@@ -47,7 +46,7 @@ IFO oraz VOB.
 Summary:	Header files for developing programs using libmpeg3
 Summary(pl):	Pliki nag³ówkowe do rozwijania programów u¿ywaj±cych libmpeg3
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Requires:	a52dec-libs-devel
 
 %description devel
@@ -63,7 +62,7 @@ libmpeg3.
 Summary:	Static libmpeg3 library
 Summary(pl):	Statyczna biblioteka libmpeg3
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static libmpeg3 library.
@@ -75,7 +74,7 @@ Statyczna biblioteka libmpeg3.
 Summary:	libmpeg3 utility programs
 Summary(pl):	programy u¿ytkowe
 Group:		Applications/Graphics
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description progs
 This package includes various utility programs for manipulating MPEG
@@ -88,7 +87,6 @@ MPEG.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__libtoolize}
