@@ -7,7 +7,7 @@ diff -ur libmpeg3-1.2.2/Makefile libmpeg3-1.2.2.shared/Makefile
  
 +MAJOR = 1
 +MINOR = 2
-+MICRO = 2
++MICRO = 3
 +CFLAGSSHARE = -shared -Wl,-soname,libmpeg3.so.$(MAJOR)
 +
  OBJS = \
@@ -72,7 +72,7 @@ diff -ur libmpeg3-1.2.2/Makefile libmpeg3-1.2.2.shared/Makefile
 +	video/vlc_pic.o
 +
  OUTPUT = libmpeg3.a
-+OUTPUT_SHARED = libmpeg3.so.1.2.2
++OUTPUT_SHARED = libmpeg3.so.$(MAJOR).$(MINOR).$(MICRO)
  UTILS = dump mpeg3cat mpeg3toc mpeg3split
  LIBS = -lm -lpthread
  
