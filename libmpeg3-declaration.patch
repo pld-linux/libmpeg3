@@ -1,13 +1,14 @@
---- libmpeg3-1.5.1/mpeg3toc.c~	Wed May 28 23:52:24 2003
-+++ libmpeg3-1.5.1/mpeg3toc.c	Wed May 28 23:55:18 2003
-@@ -196,9 +196,9 @@
+--- libmpeg3-1.5.3/mpeg3toc.c~	Wed May 28 23:52:24 2003
++++ libmpeg3-1.5.3/mpeg3toc.c	Wed May 28 23:55:18 2003
+@@ -196,10 +196,10 @@
  				if(!mpeg3_end_of_audio(input, j))
  				{
  // Don't want to maintain separate vectors for offset and title.
 -					title_number = mpeg3demux_tell_title(input->atrack[j]->demuxer);
- 					int64_t position = mpeg3demux_tell(input->atrack[j]->demuxer);
+ 					int64_t position = mpeg3demux_tell_relative(input->atrack[j]->demuxer);
  					int64_t result;
+ 
 +					title_number = mpeg3demux_tell_title(input->atrack[j]->demuxer);
- 					if(position < MPEG3_IO_SIZE) position = MPEG3_IO_SIZE;
- 					result = (title_number << 56) | (position - MPEG3_IO_SIZE);
+ //					if(position < MPEG3_IO_SIZE) position = MPEG3_IO_SIZE;
+ //					result = (title_number << 56) | (position - MPEG3_IO_SIZE);
  
