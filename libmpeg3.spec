@@ -6,7 +6,6 @@ Release:	1
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/heroines/%{name}-%{version}-src.tar.bz2
-# Source0-md5: 8aec1ab57e0cd7f968b9398e206cb4d4
 URL:		http://heroinewarriors.com/libmpeg3.php3
 Patch0:		%{name}-acam.patch
 Patch1:		%{name}-pthread.patch

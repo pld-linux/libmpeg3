@@ -99,13 +99,14 @@
 +mpeg3toc_LDADD = libmpeg3.la
 +
 +reconmmx.lo: $(NASMSRC)
-+	$(LIBTOOL) --mode=compile --tag=NASM $(NASM) -f elf $(NASMSRC) -o $(NASMOBJ)
++	$(LIBTOOL) --mode=compile $(NASM) -f elf $(NASMSRC) -o $(NASMOBJ)
+#+	$(LIBTOOL) --mode=compile --tag=NASM $(NASM) -f elf $(NASMSRC) -o $(NASMOBJ)
 --- libmpeg3-1.5.0/configure.in.orig	Thu Jan  1 01:00:00 1970
 +++ libmpeg3-1.5.0/configure.in	Thu Feb 27 23:35:04 2003
 @@ -0,0 +1,29 @@
 +AC_INIT(libmpeg3, 1.5.0)
 +AM_INIT_AUTOMAKE(libmpeg3, 1.5.0)
-+AC_CONFIG_HEADER([config.h])
++AM_CONFIG_HEADER([config.h])
 +
 +AC_PROG_CC
 +AC_PROG_CPP
