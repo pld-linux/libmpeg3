@@ -1,21 +1,22 @@
 Summary:	LibMPEG3 - decoding of many many derivatives of MPEG standards
 Summary(pl):	LibMPEG3 - dekodowanie wielu alternatywnych standardów MPEG
 Name:		libmpeg3
-Version:	1.5.4
+Version:	1.6
 Release:	1
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/heroines/%{name}-%{version}-src.tar.bz2
-# Source0-md5:	7adfc9c0beea2134575137f2e0d2ef11
+# Source0-md5:	08ad35f5a88a59eb2b85ed7d912257e0
 Patch0:		%{name}-acam.patch
 URL:		http://heroinewarrior.com/libmpeg3.php3
-BuildRequires:	a52dec-libs-devel
-BuildRequires:	autoconf
+BuildRequires:	a52dec-libs-devel >= 0.7.3
+BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	libtool
 %ifarch i586 i686 athlon
 BuildRequires:	nasm
 %endif
+Requires:	a52dec-libs >= 0.7.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -47,7 +48,7 @@ Summary:	Header files for developing programs using libmpeg3
 Summary(pl):	Pliki nag³ówkowe do rozwijania programów u¿ywaj±cych libmpeg3
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	a52dec-libs-devel
+Requires:	a52dec-libs-devel >= 0.7.3
 
 %description devel
 This package is all you need to develop programs that handle the
