@@ -1,5 +1,5 @@
 Summary:	LibMPEG3 - decoding of many many derivatives of MPEG standards
-Summary(pl):	LibMPEG3 - dekodowanie wielu alternatywnych standardów MPEG
+Summary(pl.UTF-8):   LibMPEG3 - dekodowanie wielu alternatywnych standardÃ³w MPEG
 Name:		libmpeg3
 Version:	1.7
 Release:	2
@@ -36,16 +36,16 @@ libmpeg3 currently decodes:
  - IFO files
  - VOB files
 
-%description -l pl
+%description -l pl.UTF-8
 LibMPEG3 dekoduje wiele odmian standardu MPEG w nieskompresowany
-strumieñ, który ³atwo jest odtwarzaæ lub modyfikowaæ. Aktualnie
-potrafi dekodowaæ: d¼wiêk MPEG-1 Layer II i III oraz MPEG-2 Layer 3,
-strumienie MPEG-1 i MPEG-2, d¼wiêk AC3, obraz MPEG-1 i MPEG-2, pliki
+strumieÅ„, ktÃ³ry Å‚atwo jest odtwarzaÄ‡ lub modyfikowaÄ‡. Aktualnie
+potrafi dekodowaÄ‡: dÅºwiÄ™k MPEG-1 Layer II i III oraz MPEG-2 Layer 3,
+strumienie MPEG-1 i MPEG-2, dÅºwiÄ™k AC3, obraz MPEG-1 i MPEG-2, pliki
 IFO oraz VOB.
 
 %package devel
 Summary:	Header files for developing programs using libmpeg3
-Summary(pl):	Pliki nag³ówkowe do rozwijania programów u¿ywaj±cych libmpeg3
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe do rozwijania programÃ³w uÅ¼ywajÄ…cych libmpeg3
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	a52dec-libs-devel >= 0.7.3
@@ -54,26 +54,26 @@ Requires:	a52dec-libs-devel >= 0.7.3
 This package is all you need to develop programs that handle the
 various video and audio file formats supported by libmpeg3.
 
-%description devel -l pl
-Ten pakiet to wszystko czego potrzebujesz by rozwijaæ programy
-obs³uguj±ce ró¿ne formaty plików wideo oraz audio wspierane przez
+%description devel -l pl.UTF-8
+Ten pakiet to wszystko czego potrzebujesz by rozwijaÄ‡ programy
+obsÅ‚ugujÄ…ce rÃ³Å¼ne formaty plikÃ³w wideo oraz audio wspierane przez
 libmpeg3.
 
 %package static
 Summary:	Static libmpeg3 library
-Summary(pl):	Statyczna biblioteka libmpeg3
+Summary(pl.UTF-8):   Statyczna biblioteka libmpeg3
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static libmpeg3 library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczna biblioteka libmpeg3.
 
 %package progs
 Summary:	libmpeg3 utility programs
-Summary(pl):	programy u¿ytkowe
+Summary(pl.UTF-8):   programy uÅ¼ytkowe
 Group:		Applications/Graphics
 Requires:	%{name} = %{version}-%{release}
 
@@ -81,8 +81,8 @@ Requires:	%{name} = %{version}-%{release}
 This package includes various utility programs for manipulating MPEG
 files for use by libmpeg3 programs.
 
-%description progs -l pl
-Ten pakiet zawiera ró¿ne programy narzêdziowe do manipulowania plikami
+%description progs -l pl.UTF-8
+Ten pakiet zawiera rÃ³Å¼ne programy narzÄ™dziowe do manipulowania plikami
 MPEG.
 
 %prep
