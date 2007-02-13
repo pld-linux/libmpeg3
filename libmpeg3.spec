@@ -1,5 +1,5 @@
 Summary:	LibMPEG3 - decoding of many many derivatives of MPEG standards
-Summary(pl.UTF-8):   LibMPEG3 - dekodowanie wielu alternatywnych standardów MPEG
+Summary(pl.UTF-8):	LibMPEG3 - dekodowanie wielu alternatywnych standardów MPEG
 Name:		libmpeg3
 Version:	1.7
 Release:	2
@@ -45,7 +45,7 @@ IFO oraz VOB.
 
 %package devel
 Summary:	Header files for developing programs using libmpeg3
-Summary(pl.UTF-8):   Pliki nagłówkowe do rozwijania programów używających libmpeg3
+Summary(pl.UTF-8):	Pliki nagłówkowe do rozwijania programów używających libmpeg3
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	a52dec-libs-devel >= 0.7.3
@@ -61,7 +61,7 @@ libmpeg3.
 
 %package static
 Summary:	Static libmpeg3 library
-Summary(pl.UTF-8):   Statyczna biblioteka libmpeg3
+Summary(pl.UTF-8):	Statyczna biblioteka libmpeg3
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -73,7 +73,7 @@ Statyczna biblioteka libmpeg3.
 
 %package progs
 Summary:	libmpeg3 utility programs
-Summary(pl.UTF-8):   programy użytkowe
+Summary(pl.UTF-8):	programy użytkowe
 Group:		Applications/Graphics
 Requires:	%{name} = %{version}-%{release}
 
