@@ -1,12 +1,12 @@
 Summary:	LibMPEG3 - decoding of many many derivatives of MPEG standards
 Summary(pl.UTF-8):	LibMPEG3 - dekodowanie wielu alternatywnych standardów MPEG
 Name:		libmpeg3
-Version:	1.7
-Release:	2
+Version:	1.8
+Release:	1
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/heroines/%{name}-%{version}-src.tar.bz2
-# Source0-md5:	4a3e8896164d59d7d0dff69b50b75352
+# Source0-md5:	a9d0d34e8941a4437eb8e7dfe559eca1
 Patch0:		%{name}-acam.patch
 URL:		http://heroinewarrior.com/libmpeg3.php3
 BuildRequires:	a52dec-libs-devel >= 0.7.3
@@ -117,7 +117,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libmpeg3.so.*.*
+%attr(755,root,root) %{_libdir}/libmpeg3.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libmpeg3.so.1
 
 %files devel
 %defattr(644,root,root,755)
