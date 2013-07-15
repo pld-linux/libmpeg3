@@ -3,7 +3,7 @@ Summary(pl.UTF-8):	LibMPEG3 - dekodowanie wielu alternatywnych standardów MPEG
 Name:		libmpeg3
 Version:	1.8
 Release:	2
-License:	GPL
+License:	GPL v2+
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/heroines/%{name}-%{version}-src.tar.bz2
 # Source0-md5:	a9d0d34e8941a4437eb8e7dfe559eca1
