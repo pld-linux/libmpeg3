@@ -5,10 +5,10 @@ Version:	1.8
 Release:	2
 License:	GPL
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/heroines/%{name}-%{version}-src.tar.bz2
+Source0:	http://downloads.sourceforge.net/heroines/%{name}-%{version}-src.tar.bz2
 # Source0-md5:	a9d0d34e8941a4437eb8e7dfe559eca1
 Patch0:		%{name}-acam.patch
-URL:		http://heroinewarrior.com/libmpeg3.php3
+URL:		http://heroinewarrior.com/libmpeg3.php
 BuildRequires:	a52dec-libs-devel >= 0.7.3
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -73,7 +73,7 @@ Statyczna biblioteka libmpeg3.
 
 %package progs
 Summary:	libmpeg3 utility programs
-Summary(pl.UTF-8):	programy użytkowe
+Summary(pl.UTF-8):	Programy użytkowe based on libmpeg3
 Group:		Applications/Graphics
 Requires:	%{name} = %{version}-%{release}
 
@@ -133,4 +133,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files progs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/mpeg3cat
+%attr(755,root,root) %{_bindir}/mpeg3dump
+%attr(755,root,root) %{_bindir}/mpeg3peek
+%attr(755,root,root) %{_bindir}/mpeg3toc
